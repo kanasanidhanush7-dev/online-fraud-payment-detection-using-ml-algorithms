@@ -1,4 +1,7 @@
-django==3.2 
-numpy==1.21.6 
-pandas==1.1.5 
-scikit-learn==0.24.2
+Django==6.1.1
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+imbalanced-learn==0.14.2
+matplotlib==3.11.2
+seaborn==0.13.2
