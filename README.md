@@ -1,25 +1,27 @@
 ## Project Screenshots
 
 ### 1. Project Running in Django
-![Project Running in Django](Screenshot%20%28159%29.png)
+<img src="./Screenshot%20%28159%29.png" alt="Project Running in Django" width="900">
 
 ### 2. Project Home Page
-![Project Home Page](Screenshot%20%28160%29.png)
+<img src="./Screenshot%20%28160%29.png" alt="Project Home Page" width="900">
 
 ### 3. User Login Screen
-![User Login Screen](Screenshot%20%28161%29.png)
+<img src="./Screenshot%20%28161%29.png" alt="User Login Screen" width="900">
 
 ### 4. New User Registration Screen
-![New User Registration Screen](Screenshot%20%28162%29.png)
+<img src="./Screenshot%20%28162%29.png" alt="New User Registration Screen" width="900">
 
 ### 5. Loaded Dataset and Class Distribution
-![Loaded Dataset and Class Distribution](Screenshot%20%28163%29.png)
+<img src="./Screenshot%20%28163%29.png" alt="Loaded Dataset and Class Distribution" width="900">
 
 ### 6. Balanced Dataset Using SMOTE
-![Balanced Dataset Using SMOTE](Screenshot%20%28164%29.png)
+<img src="./Screenshot%20%28164%29.png" alt="Balanced Dataset Using SMOTE" width="900">
 
 ### 7. ML Model Training and Results
-![ML Model Training and Results](Screenshot%20%28165%29.png)
+<img src="./Screenshot%20%28165%29.png" alt="ML Model Training and Results" width="900">
 
 ### 8. Fraud Detection Using Test Data
-![Fraud Detection Using Test Data](Screenshot%20%28166%29.png)
+<img src="./Screenshot%20%28166%29.png" alt="Fraud Detection Using Test Data" width="900">
+
+
