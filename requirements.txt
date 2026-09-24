@@ -1,0 +1,7 @@
+Django==6.1.1
+numpy
+pandas
+scikit-learn
+imbalanced-learn
+matplotlib
+seaborn
