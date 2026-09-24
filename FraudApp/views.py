@@ -49,22 +49,20 @@ def calculateMetrics(algorithm, y_test, predict):
 
 # Training Model Pipeline Initialization
 dataset = pd.read_csv("Dataset/PS_20174392719_1491204439457_log.csv")
-Y = dataset['isFraud'].ravel()
+Y = dataset['isFraud'].to_numpy()
 unique, count = np.unique(Y, return_counts=True)
 dataset.drop(['step', 'type', 'isFraud', 'isFlaggedFraud'], axis=1, inplace=True)
 
 label_encoder = []
-columns = dataset.columns
-types = dataset.dtypes.values
-for j in range(len(types)):
-    name = types[j]
-    if name == 'object': # finding column with object type
-        le = LabelEncoder()
-        dataset[columns[j]] = pd.Series(le.fit_transform(dataset[columns[j]].astype(str))) # encode all str columns to numeric
-        label_encoder.append([columns[j], le])
-dataset.fillna(dataset.mean(), inplace=True)
+for column in dataset.select_dtypes(include=['object']).columns:
+    le = LabelEncoder()
+    dataset[column] = le.fit_transform(dataset[column].astype(str))
+    label_encoder.append([column, le])
 
-X = dataset.values
+dataset = dataset.apply(pd.to_numeric, errors='coerce')
+dataset.fillna(dataset.mean(numeric_only=True), inplace=True)
+
+X = dataset.to_numpy()
 
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
@@ -124,7 +122,7 @@ def PredictAction(request):
         for i in range(len(label_encoder)):
             le = label_encoder[i]
             testData[le[0]] = pd.Series(le[1].transform(testData[le[0]].astype(str))) # encode all str columns to numeric
-        testData.fillna(dataset.mean(), inplace=True)
+        testData.fillna(dataset.mean(numeric_only=True), inplace=True)
         testData = scaler.transform(testData)
         predict = rf.predict(testData)
         
@@ -160,7 +158,7 @@ def TrainML(request):
                            ['Random Forest with Smote', 'Accuracy', accuracy[2]], ['Random Forest with Smote', 'Precision', precision[2]], ['Random Forest with Smote', 'Recall', recall[2]], ['Random Forest with Smote', 'FSCORE', fscore[2]],
                            ['Naive Bayes with Smote', 'Accuracy', accuracy[3]], ['Naive Bayes with Smote', 'Precision', precision[3]], ['Naive Bayes with Smote', 'Recall', recall[3]], ['Naive Bayes with Smote', 'FSCORE', fscore[3]],
                           ], columns=['Parameters', 'Algorithms', 'Value'])
-        df.pivot("Parameters", "Algorithms", "Value").plot(kind='bar', ax=axis[1])        
+        df.pivot(index="Parameters", columns="Algorithms", values="Value").plot(kind='bar', ax=axis[1])        
         buf = io.BytesIO()
         plt.savefig(buf, format='png', bbox_inches='tight')
         img_b64 = base64.b64encode(buf.getvalue()).decode()
@@ -223,12 +221,9 @@ def UserLoginAction(request):
         username = request.POST.get('t1').strip()
         password = request.POST.get('t2').strip()
 
-        print("DEBUG LOGIN:", username, password)
-
         user = Register.objects.filter(username=username).first()
 
         if user:
-            print("DB PASSWORD:", user.password)
             if user.password == password:
                 return render(request, "UserScreen.html", {'data': 'Welcome ' + username})
 
