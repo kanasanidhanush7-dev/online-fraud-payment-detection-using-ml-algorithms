@@ -1,94 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Machine Learning Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 30px;
-        }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .results {
-            margin-top: 25px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #999;
-        }
-
-        th {
-            background-color: #eeeeee;
-        }
-
-        .graph {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .graph img {
-            max-width: 700px;
-            width: 100%;
-            height: auto;
-        }
-
-        .back {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        .back a {
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>Machine Learning Results</h1>
-
-    <div class="results">
-        {{ data|safe }}
+{% extends "base.html" %}
+{% block title %}Train ML | FraudDetect{% endblock %}
+{% block train_active %}active{% endblock %}
+{% block content %}
+<main class="page-main">
+  <div class="container">
+    <div class="page-title page-title-row">
+      <div><div class="eyebrow">Model performance</div><h1>Machine Learning Results</h1><p>Performance metrics generated from the saved Random Forest model.</p></div>
+      <div class="status-pill"><span></span> Random Forest</div>
     </div>
-
-    <div class="graph">
-        <h2>Model Accuracy</h2>
-        <img src="data:image/png;base64,{{ graph }}" alt="Model Accuracy Graph">
-    </div>
-
-    <div class="back">
-        <a href="/">Back to Home</a>
-    </div>
-
-</div>
-
-</body>
-</html>
+    <section class="card dashboard-card">
+      <div class="dashboard-nav">
+        <a href="{% url 'LoadDataset' %}">Dataset</a><a href="{% url 'BalancedData' %}">Balanced Data</a><a class="current" href="{% url 'TrainML' %}">Train ML</a><a href="{% url 'Predict' %}">Detect Fraud</a><a href="{% url 'index' %}">Home</a>
+      </div>
+      <div class="metric-intro"><div class="mini-icon">✦</div><div><strong>Random Forest evaluation</strong><span>Accuracy, precision, recall and F-score from the saved model.</span></div></div>
+      <div class="data-card metrics-table">{{ data|safe }}</div>
+      <div class="graph-card">
+        <div class="result-heading"><div><div class="eyebrow">Performance visual</div><h2>Model Accuracy</h2></div></div>
+        <img src="data:image/png;base64,{{ graph }}" alt="Random Forest accuracy graph">
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

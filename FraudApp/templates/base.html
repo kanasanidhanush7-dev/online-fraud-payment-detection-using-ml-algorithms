@@ -1,0 +1,92 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020b22">
+  <meta name="description" content="Online Fraud Payment Detection using Machine Learning">
+  <title>{% block title %}Online Fraud Payment Detection{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="site-shell">
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="{% url 'index' %}" aria-label="FraudDetect home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img"><path d="M24 3 40 9v12c0 10.5-6.6 19.2-16 24C14.6 40.2 8 31.5 8 21V9l16-6Z"/><path d="m16 24 5 5 11-12"/></svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-title">Fraud<span>Detect</span></span>
+          <span class="brand-sub">Safe Payments <i>•</i> Smarter AI</span>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <div class="nav-links">
+          <a class="{% block home_active %}{% endblock %}" href="{% url 'index' %}">Home</a>
+          <a class="{% block predict_active %}{% endblock %}" href="{% url 'Predict' %}">Predict</a>
+          <a class="{% block dataset_active %}{% endblock %}" href="{% url 'LoadDataset' %}">Dataset</a>
+          <a class="{% block train_active %}{% endblock %}" href="{% url 'TrainML' %}">Train ML</a>
+          <a href="{% url 'index' %}#about">About</a>
+        </div>
+        <div class="nav-actions">
+          <a class="btn btn-outline btn-small" href="{% url 'UserLogin' %}">Login</a>
+          <a class="btn btn-primary btn-small" href="{% url 'Register' %}">Register</a>
+        </div>
+      </nav>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" onclick="toggleMenu(this)">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-links" aria-label="Mobile navigation">
+          <a href="{% url 'index' %}">Home</a>
+          <a href="{% url 'Predict' %}">Predict</a>
+          <a href="{% url 'LoadDataset' %}">Dataset</a>
+          <a href="{% url 'TrainML' %}">Train ML</a>
+          <a href="{% url 'index' %}#about">About</a>
+        </nav>
+        <div class="mobile-actions">
+          <a class="btn btn-outline" href="{% url 'UserLogin' %}">Login</a>
+          <a class="btn btn-primary" href="{% url 'Register' %}">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>
+        <div class="footer-copy">© 2026 Online Fraud Payment Detection <span>•</span> Machine Learning</div>
+        <div class="footer-note">AI-powered transaction analysis project</div>
+      </div>
+      <div class="built-by">
+        <span class="built-icon" aria-hidden="true">✦</span>
+        <span><small>Built by</small><strong>Dhanush Kanasani</strong></span>
+      </div>
+    </div>
+  </footer>
+</div>
+<script>
+function toggleMenu(button){
+  const menu = document.getElementById('mobileMenu');
+  const open = menu.classList.toggle('open');
+  button.classList.toggle('open', open);
+  button.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.querySelectorAll('.mobile-menu a').forEach(function(link){
+  link.addEventListener('click', function(){
+    document.getElementById('mobileMenu').classList.remove('open');
+    const button = document.querySelector('.menu-toggle');
+    if(button){ button.classList.remove('open'); button.setAttribute('aria-expanded','false'); }
+  });
+});
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

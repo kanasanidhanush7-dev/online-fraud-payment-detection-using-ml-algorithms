@@ -1,65 +1,41 @@
-{% load static %}
-<html>
-<head>
-<title>Online Fraud Payment Detection</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
-<script language="javascript">
-	function validate(formObj)
-	{
-	if(formObj.t1.value.length==0)
-	{
-	alert("Please upload test dataset");
-	formObj.t1.focus();
-	return false;
-	}
-	return true;
-	}
-
-	</script>
-</head>
-<style>
-body {
-  background-image: url("{% static 'images/back.jpg' %}");
-}
-</style>
-<body>
-<div class="main">
-  <div class="main_resize">
-    <div class="header">
-      <div class="logo">
-        <h1><span>Online Fraud Payment Detection using Balanced ML Algorithms</span><small></small></h1>
-      </div>
+{% extends "base.html" %}
+{% block title %}Fraud Prediction | FraudDetect{% endblock %}
+{% block predict_active %}active{% endblock %}
+{% block content %}
+<main class="page-main">
+  <div class="container">
+    <div class="page-title page-title-row">
+      <div><div class="eyebrow">Machine learning prediction</div><h1>Detect Fraud</h1><p>Upload a compatible test CSV and let the trained Random Forest model classify transactions.</p></div>
+      <div class="status-pill"><span></span> Model ready</div>
     </div>
-    <div class="content">
-      <div class="content_bg">
-        <div class="menu_nav">
-         <ul>      
-		  <li><a href="{% url 'LoadDataset' %}"><font size="3" color="black">Load & Processed Dataset</a></li>
-		  <li><a href="{% url 'BalancedData' %}"><font size="3" color="black">Balanced Data using ML</a></li>
-		  <li><a href="{% url 'TrainML' %}"><font size="3" color="black">Train ML Models</a></li>
-		  <li><a href="{% url 'Predict' %}"><font size="3" color="black">Detect Fraud</a></li>
-     <li><a href="{% url 'index' %}"><font size="3" color="black">Logout</a></li>
-   </ul>      
-        </div>
-        <div class="hbg"><img src="{% static 'images/header_images.jpg' %}" width="1010" height="200" alt="" /></div>
-      				<center>
-<form name="f1" method="post" action={% url 'PredictAction' %} enctype="multipart/form-data" onsubmit="return validate(this);">
-{% csrf_token %}<br/>
-   <h2><b>Fraud Detection from Test Data Screen</b></h2>
-   
-	<font size="" color="red"><center>{{ data }}</center></font>
-						
-						<table align="center" width="30%" >
-			 <tr><td><font size="3" color="black">Upload&nbsp;Test&nbsp;Data</td><td><input type="file" name="t1" size="30"/></td></tr>
-
-
-			<tr><td></td><td><input type="submit" value="Submit"></td>
-			</table>
-				</div>	
-					
-				</div>
-				
-					
-	</body>
-</html>
+    <section class="card dashboard-card">
+      <div class="dashboard-nav">
+        <a href="{% url 'LoadDataset' %}">Dataset</a><a href="{% url 'BalancedData' %}">Balanced Data</a><a href="{% url 'TrainML' %}">Train ML</a><a class="current" href="{% url 'Predict' %}">Detect Fraud</a><a href="{% url 'index' %}">Home</a>
+      </div>
+      <div class="analysis-banner"><div class="banner-icon">↯</div><div><strong>Run a prediction</strong><span>Use the same transaction columns expected by the trained model.</span></div></div>
+      <div class="upload-panel">
+        <div class="upload-icon">↑</div>
+        <h2>Upload test dataset</h2>
+        <p>Choose a CSV file from your computer. The model will analyze every transaction row.</p>
+        <form name="f1" method="post" action="{% url 'PredictAction' %}" enctype="multipart/form-data" onsubmit="return validate(this);">
+          {% csrf_token %}
+          <label class="file-picker" for="testfile"><span>Choose CSV file</span><input id="testfile" name="t1" type="file" accept=".csv,text/csv"></label>
+          <div class="selected-file" id="selectedFile">No file selected</div>
+          <div class="form-actions center"><button class="btn btn-primary" type="submit">Run Fraud Detection&nbsp; →</button></div>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script>
+const fileInput=document.getElementById('testfile');
+const selectedFile=document.getElementById('selectedFile');
+if(fileInput){fileInput.addEventListener('change',function(){selectedFile.textContent=this.files.length?this.files[0].name:'No file selected';});}
+function validate(formObj){
+  if(!formObj.t1.value){alert("Please upload test dataset");formObj.t1.focus();return false;}
+  return true;
+}
+</script>
+{% endblock %}

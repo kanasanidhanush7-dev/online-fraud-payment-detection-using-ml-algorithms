@@ -1,41 +1,64 @@
+{% extends "base.html" %}
 {% load static %}
-<html>
-<head>
-<title>Online Fraud Payment Detection</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
-</head>
-<style>
-body {
-  background-image: url("{% static 'images/back.jpg' %}");
-}
-</style>
-<body>
-<div class="main">
-  <div class="main_resize">
-    <div class="header">
-      <div class="logo">
-        <h1 align="center"><span>Online Fraud Payment Detection using Balanced ML Algorithms</span><small></small></h1>
+{% block title %}Online Fraud Payment Detection | FraudDetect{% endblock %}
+{% block home_active %}active{% endblock %}
+{% block content %}
+<main>
+  <section class="hero">
+    <div class="hero-glow hero-glow-one"></div>
+    <div class="hero-glow hero-glow-two"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="badge">🛡 AI POWERED <i>•</i> SECURE <i>•</i> RELIABLE</span>
+        <h1>Online Fraud<br><span class="gradient-text">Payment Detection</span></h1>
+        <p>Detect suspicious transactions using Machine Learning and advanced analysis. Keep your online payments safe and secure.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="{% url 'Predict' %}">▶&nbsp; Try Prediction</a>
+          <a class="btn btn-outline" href="{% url 'UserLogin' %}">♙&nbsp; Login</a>
+        </div>
+        <div class="hero-signature"><span>Built by</span><strong>Dhanush Kanasani</strong></div>
+      </div>
+      <div class="hero-art-wrap">
+        <div class="art-frame">
+          <img class="hero-art" src="{% static 'images/fraud_hero_art.png' %}" alt="AI payment fraud detection security illustration">
+        </div>
+        <div class="floating-chip chip-left">● ML Analysis</div>
+        <div class="floating-chip chip-right">✓ Secure Detection</div>
       </div>
     </div>
-    <div class="content">
-      <div class="content_bg">
-        <div class="menu_nav">
-         
-           <ul>
-      <li><a href="{% url 'index' %}"><font size="3" color="black">Home</a></li>
-       <li><a href="{% url 'UserLogin' %}"><font size="3" color="black">User Login</a></li>
-      <li><a href="{% url 'Register' %}"><font size="3" color="black">New User Register</a></li>
-	 
-   </ul>
-         
-        </div>
-        <div class="hbg"><img src="{% static 'images/header_images.jpg' %}" width="1010" height="200" alt="" /></div>
+  </section>
 
-		       <p align="justify"><font size="3" style="font-family: Comic Sans MS" color="black"><center>Online Fraud Payment Detection</center>
-</p>
- 
- <font size="3" color="black"><center>{{ data|safe }}</center></font><br/>
-		<img src="data:image/png;base64, {{ img }}" alt="" />
-  </body>
-</html>
+  <section class="container feature-section">
+    <div class="section-kicker">Core capabilities</div>
+    <div class="features">
+      <article class="feature"><div class="feature-icon">🛡</div><h3>Secure Payments</h3><p>Protect suspicious transaction workflows with intelligent analysis.</p></article>
+      <article class="feature"><div class="feature-icon">ϟ</div><h3>Fast Detection</h3><p>Run quick predictions using the trained Random Forest model.</p></article>
+      <article class="feature"><div class="feature-icon">▥</div><h3>Pattern Analysis</h3><p>Analyze transaction features to identify potential fraud.</p></article>
+      <article class="feature"><div class="feature-icon">✦</div><h3>Smart Analysis</h3><p>Use balanced training data and clear model results.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">How it works</div>
+        <h2>Simple Steps, Stronger Security</h2>
+        <p>The system processes transaction data, applies the trained model, and presents a clear prediction result.</p>
+      </div>
+      <div class="steps">
+        <article class="step"><div class="step-number">01</div><div class="step-icon">↳</div><h3>Input Transaction</h3><p>Upload compatible transaction data for testing.</p></article>
+        <article class="step"><div class="step-number">02</div><div class="step-icon">◎</div><h3>ML Analysis</h3><p>The trained model analyzes the transaction features.</p></article>
+        <article class="step"><div class="step-number">03</div><div class="step-icon">✓</div><h3>Get Result</h3><p>View whether each transaction is normal or fraudulent.</p></article>
+        <article class="step"><div class="step-number">04</div><div class="step-icon">↗</div><h3>Take Action</h3><p>Identify transactions that require further attention.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="container cta-section">
+    <div class="cta-card">
+      <div><div class="eyebrow">Ready to test?</div><h2>Analyze a transaction with FraudDetect.</h2><p>Upload your compatible CSV and view the model's classification.</p></div>
+      <a class="btn btn-primary" href="{% url 'Predict' %}">Start Prediction&nbsp; →</a>
+    </div>
+  </section>
+</main>
+{% endblock %}
