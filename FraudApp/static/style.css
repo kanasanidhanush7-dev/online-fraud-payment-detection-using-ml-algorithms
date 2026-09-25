@@ -107,7 +107,7 @@ a.rm, a.com {
 	margin:0;
 	padding:0 2px 0 0;
 	float:left;
-	background:url(images/menu_line.gif) no-repeat right;
+	background:none;
 }
 .menu_nav ul li a {
 	display:block;
@@ -237,7 +237,7 @@ ul.ex_menu li a:hover {
 .fbg .col {
 	margin:0;
 	float:left;
-	background:url(images/fbg_line1.gif) repeat-y right;
+	background:none;
 }
 .fbg .c1 {
 	padding:0 15px 0 0;
