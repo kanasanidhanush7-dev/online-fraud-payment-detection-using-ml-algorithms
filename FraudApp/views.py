@@ -12,20 +12,20 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 import base64
 import io
 import os
 import joblib
-import matplotlib.pyplot as plt
 from .models import Register
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponse
 from django.conf import settings
-import matplotlib
-matplotlib.use('Agg')
-
 
 global username
 global X_train, X_test, y_train, y_test, X, Y, train_size
@@ -108,16 +108,18 @@ def PredictAction(request):
         testData = pd.read_csv('FraudApp/static/' + filename)
         data = testData.values
 
-        # FIXED: Dropping evaluating features ('isFraud', 'isFlaggedFraud') so exactly 7 columns match the training scaler
-        testData.drop(['step', 'type', 'isFraud', 'isFlaggedFraud'],
-                      axis=1, inplace=True, errors='ignore')
+        # Drop features not used by the trained model
+        testData.drop(
+            ['step', 'type', 'isFraud', 'isFlaggedFraud'],
+            axis=1,
+            inplace=True,
+            errors='ignore'
+        )
 
-        for i in range(len(label_encoder)):
-            le = label_encoder[i]
-            # encode all str columns to numeric
-            testData[le[0]] = pd.Series(
-                le[1].transform(testData[le[0]].astype(str)))
+        testData = testData.reindex(columns=feature_columns)
+        testData = testData.apply(pd.to_numeric, errors='coerce')
         testData.fillna(dataset.mean(numeric_only=True), inplace=True)
+
         testData = scaler.transform(testData)
         predict = rf.predict(testData)
 
