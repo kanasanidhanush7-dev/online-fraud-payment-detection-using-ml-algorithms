@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Learning Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .results {
+            margin-top: 25px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #999;
+        }
+
+        th {
+            background-color: #eeeeee;
+        }
+
+        .graph {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .graph img {
+            max-width: 700px;
+            width: 100%;
+            height: auto;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Machine Learning Results</h1>
+
+    <div class="results">
+        {{ data|safe }}
+    </div>
+
+    <div class="graph">
+        <h2>Model Accuracy</h2>
+        <img src="data:image/png;base64,{{ graph }}" alt="Model Accuracy Graph">
+    </div>
+
+    <div class="back">
+        <a href="/">Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html>
